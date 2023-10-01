@@ -1,7 +1,45 @@
 <% if user_signed_in? %>
     <!-- Si el usuario está registrado, muestra este contenido -->
-    <h1>Bienvenido, <%= current_user.email %></h1>
-    <p>Aquí encontrarás contenido exclusivo para usuarios registrados.</p>
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col">
+            <h2>Historial de Cobros</h2>
+            <div class="d-flex justify-content-between">
+                <%= link_to "Nuevo Cobro", new_charge_path, class: "btn btn-primary" %>
+            </div>
+
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Referencia</th>
+                    <th>Valor</th>
+                    <th>Estado</th>
+                    <th>Método de Pago</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @charges.each do |charge| %>
+                    <tr>
+                    <td><%= charge.created_at %></td>
+                    <td><%= charge.uid %></td>
+                    <td>$<%= charge.amount %></td>
+                    <td>
+                        <%= charge.status %>
+                        </span>
+                        <% if charge.error_message %>
+                        <small class="text-danger"><%= charge.error_message %></small>
+                        <% end %>
+                    </td>
+                    <td><%= charge.payment_method %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
 <% else %>
     <div class="container mt-5">
         <div class="row justify-content-center">

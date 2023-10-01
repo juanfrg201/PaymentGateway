@@ -48,6 +48,8 @@ gem 'annotate'
 
 gem 'bootstrap'
 
+gem 'figaro', '~> 1.1', '>= 1.1.1'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
