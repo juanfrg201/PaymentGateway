@@ -16,9 +16,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_01_210328) do
 
   create_table "charges", force: :cascade do |t|
     t.string "uid", limit: 50
-    t.integer "status"
-    t.integer "payment_method"
-    t.decimal "amount"
+    t.integer "status", default: 0
+    t.integer "payment_method", default: 0
+    t.decimal "amount", default: "0.0"
     t.text "error_message"
     t.jsonb "response_data"
     t.bigint "user_id", null: false

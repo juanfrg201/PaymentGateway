@@ -44,6 +44,8 @@ gem "bootsnap"
 
 gem "devise"
 
+gem 'annotate'
+
 gem 'bootstrap'
 
 # Use Sass to process CSS
