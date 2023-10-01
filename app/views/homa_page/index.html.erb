@@ -1,0 +1,32 @@
+<% if user_signed_in? %>
+    <!-- Si el usuario está registrado, muestra este contenido -->
+    <h1>Bienvenido, <%= current_user.email %></h1>
+    <p>Aquí encontrarás contenido exclusivo para usuarios registrados.</p>
+<% else %>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body text-center">
+                    <h5 class="card-title">Iniciar sesión</h5>
+                    <p class="card-text">Inicia sesión para acceder a tu cuenta.</p>
+                    <%= link_to "Iniciar sesión", new_user_session_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body text-center">
+                    <h5 class="card-title">Registrarse</h5>
+                    <p class="card-text">Regístrate para crear una cuenta nueva.</p>
+                    <%= link_to "Registrarse", new_user_registration_path, class: "btn btn-success" %>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+<% end %>

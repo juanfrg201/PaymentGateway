@@ -1,0 +1,2 @@
+module HomaPageHelper
+end
