@@ -1,8 +1,8 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-6">
-      <%= link_to "Volver a los pagos", root_path, class: "btn btn-link text-primary" %>
-      <% unless @error %>
+        <%= link_to "Volver a los pagos", root_path, class: "btn btn-link text-primary" %>
+      
         <table class="table table-bordered mt-3">
             <tr>
             <th class="bg-info text-white">Referencia</th>
@@ -37,9 +37,7 @@
             <td><%= params["message"] %></td>
             </tr>
         </table>
-      <% else %>
-        <div class="alert alert-danger"><%= @error %></div>
-      <% end %>
+      
     </div>
   </div>
 </div>

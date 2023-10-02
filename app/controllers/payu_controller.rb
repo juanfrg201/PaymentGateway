@@ -4,7 +4,9 @@ class PayuController < ApplicationController
 
   def response
     @charge = Charge.where(uid: params[:referenceCode]).take
-    @error = nil
+    puts "fffffffffffffff"
+    puts params[:referenceCode]
+    puts @charge
   end
 
   def confirmation
