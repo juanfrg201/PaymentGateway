@@ -4,13 +4,7 @@ class PayuController < ApplicationController
 
   def response
     @charge = Charge.where(uid: params[:referenceCode]).take
-    if @charge.nil?
-      @error = "No se encontro el pago"
-    else
-      if params[:signature] != signature(@charge, params[:transactionState], params[:referenceCode], params[:currency])
-        @error = "La firma no existe"
-      end
-    end
+    @error = nil
   end
 
   def confirmation
