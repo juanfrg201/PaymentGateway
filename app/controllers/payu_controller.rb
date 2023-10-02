@@ -3,10 +3,17 @@ class PayuController < ApplicationController
 
 
   def response
-    @charge = Charge.where(uid: params[:referenceCode]).take
+    @charge = Charge.find_by(uid: params[:referenceCode])
     puts "fffffffffffffff"
     puts params[:referenceCode]
     puts @charge
+  
+    if @charge
+      # Render a view or send a JSON response, depending on your needs
+      render json: @charge.to_json, status: :ok
+    else
+      render json: { error: "Charge not found" }, status: :not_found
+    end
   end
 
   def confirmation
