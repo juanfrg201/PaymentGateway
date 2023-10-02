@@ -1,18 +1,6 @@
 class PayuController < ApplicationController
-  skip_before_action :verify_authenticy_token, only: [:confirmation]
+  skip_before_action :verify_authenticity_token, only: [:confirmation]
 
-  def confirmation
-    @charge = Charge.find_by(uid: params[:reference_sale])
-    if @charge.nil?
-      head :unprocessable_entity
-      return
-    end
-    if params[:sign] == signature(@charge, params[:state_pol])
-      head :ok
-    else
-      head :unprocessable_entity
-    end
-  end
 
   def response
     @charge = Charge.find_by(uid: params[:referenceCode])
@@ -26,10 +14,30 @@ class PayuController < ApplicationController
     end
   end
 
+  def confirmation
+    @charge = Charge.find_by(uid: params[:reference_sale])
+    if @charge.nil?
+      head :unprocessable_entity
+      return
+    end
+
+    @charge.update!(response_data: params.as_json)
+
+    if params[:sign] == signature(@charge, params[:state_pol])
+      @charge.update_status(params[:state_pol])
+      @charge.update_payment_method(params[:payment_method_type])
+      head :ok
+    else
+      head :unprocessable_entity
+    end
+  end
+
   private 
 
   def signature(charge, state)
     msg = "#{ENV['PAYU_API_KEY']}~#{ENV['PAYU_MERCHANT_ID']}~#{charge.uid}~#{charge.amount}~COP~#{params[:state]}"
     Digest::MD5.hexdigest(msg)
   end
+
+  
 end
