@@ -7,7 +7,7 @@ class PayuController < ApplicationController
     if @charge.nil?
       @error = "No se encontro el pago"
     else
-      if params[:signature] != signature(@charge, params[:transactionState])
+      if params[:signature] != signature(@charge, params[:transactionState], params[:referenceCode], params[:currency])
         @error = "La firma no existe"
       end
     end
@@ -22,7 +22,7 @@ class PayuController < ApplicationController
 
     @charge.update!(response_data: params.as_json)
 
-    if params[:sign] == signature(@charge, params[:state_pol])
+    if params[:sign] == signature(@charge, params[:state_pol], params[:reference_sale], params[:currency])
       @charge.update_status(params[:state_pol])
       @charge.update_payment_method(params[:payment_method_type])
       head :ok
@@ -33,8 +33,11 @@ class PayuController < ApplicationController
 
   private 
 
-  def signature(charge, state)
-    msg = "#{ENV['PAYU_API_KEY']}~#{ENV['PAYU_MERCHANT_ID']}~#{charge.uid}~#{charge.amount}~COP~#{params[:state]}"
+  def signature(charge, state, reference, currency)
+    new_value = sprintf("%.1f", BigDecimal(charge.amount))
+    msg = "#{ENV['PAYU_API_KEY']}~#{ENV['PAYU_MERCHANT_ID']}~#{reference}~#{new_value}~#{currency}"
+    puts msg
+    msg += "~#{state}" if state
     Digest::MD5.hexdigest(msg)
   end
 
