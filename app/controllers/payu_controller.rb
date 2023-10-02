@@ -8,7 +8,7 @@ class PayuController < ApplicationController
       @error = "No se encontro el pago"
 
     else
-      if params[:signature] != signature(@charge)
+      if params[:signature] != signature(@charge, params[:transactionState])
         @error = "La firma no existe"
       end
     end
