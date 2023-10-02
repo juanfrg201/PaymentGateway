@@ -103,6 +103,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dockerfile-rails (1.5.10)
+      rails (>= 3.0.0)
     erubi (1.12.0)
     execjs (2.9.1)
     ffi (1.16.2)
@@ -212,6 +214,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.11.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.11.0)
+    sentry-ruby (5.11.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -256,6 +263,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  dockerfile-rails (>= 1.5)
   figaro (~> 1.1, >= 1.1.1)
   importmap-rails
   jbuilder
@@ -264,6 +272,8 @@ DEPENDENCIES
   rails (~> 7.0.8)
   redis (~> 4.0)
   selenium-webdriver
+  sentry-rails (~> 5.11)
+  sentry-ruby (~> 5.11)
   sprockets-rails
   stimulus-rails
   turbo-rails
