@@ -3,10 +3,9 @@ class PayuController < ApplicationController
 
 
   def response
-    @charge = Charge.find_by(uid: params[:referenceCode])
+    @charge = Charge.where(uid: params[:referenceCode]).take
     if @charge.nil?
       @error = "No se encontro el pago"
-
     else
       if params[:signature] != signature(@charge, params[:transactionState])
         @error = "La firma no existe"
@@ -15,7 +14,7 @@ class PayuController < ApplicationController
   end
 
   def confirmation
-    @charge = Charge.find_by(uid: params[:reference_sale])
+    @charge = Charge.where(uid: params[:reference_sale]).take
     if @charge.nil?
       head :unprocessable_entity
       return
